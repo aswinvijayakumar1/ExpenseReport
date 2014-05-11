@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +12,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableRow;
 import android.os.Build;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public class MainActivity extends ActionBarActivity {
 
+	SQLiteDatabase db;
+	TableRow tableRow;
+	EditText email, password;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +36,27 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	public void login(View view)
+	{
+		email = (EditText) findViewById (R.id.email);
+		password = (EditText) findViewById (R.id.password);
+		Cursor c = db.rawQuery("SELECT 1 AS Output FROM ERAPP WHERE EXISTS (SELECT * FROM ERAPP WHERE email = '"+email.getText()+"' AND password = '"+password.getText()+"')", null);
+		c.moveToFirst();
+		int output = c.getInt(c.getColumnIndex("Output"));
+		Log.println(1, "Output Value: ", ""+output);
+		
+		if(output == 1)
+		{
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+		}
+		else
+		{
+			email.setText("");
+			password.setText("");
+		}
+	}
+	
 	public void register(View view) 
 	{
 		Intent intent = new Intent(this, RegisterActivity.class);

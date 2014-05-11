@@ -79,6 +79,7 @@
         android:layout_below="@+id/companyCode"
         android:layout_marginTop="30dp"
         android:background="@drawable/buttoncolor"
+        android:onClick="getData"
         android:text="Register" />
 
 </RelativeLayout>

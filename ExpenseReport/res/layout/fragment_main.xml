@@ -23,6 +23,7 @@
         android:layout_below="@+id/password"
         android:layout_marginTop="42dp"
         android:background="@drawable/buttoncolor"
+        android:onClick="login"
         android:text="Login" />
 
     <EditText
