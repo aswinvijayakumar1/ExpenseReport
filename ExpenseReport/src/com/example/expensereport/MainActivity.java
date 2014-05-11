@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.os.Build;
+import android.content.Intent;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,6 +27,12 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	public void register(View view) 
+	{
+		Intent intent = new Intent(this, RegisterActivity.class);
+		startActivity(intent);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
