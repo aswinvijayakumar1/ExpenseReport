@@ -32,6 +32,10 @@
             android:name="com.example.expensereport.RegisterActivity"
             android:label="Registration" >
         </activity>
+         <activity
+            android:name="com.example.expensereport.ReportsActivity"
+            android:label="Reports" >
+        </activity>
         </application>
 
 </manifest>
