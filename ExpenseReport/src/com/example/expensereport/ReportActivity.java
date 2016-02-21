@@ -1,6 +1,5 @@
 package com.example.expensereport;
 
-import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -9,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -17,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class ReportActivity extends Activity implements OnClickListener
 {
@@ -42,9 +42,8 @@ public class ReportActivity extends Activity implements OnClickListener
 		year = mCalen.get(Calendar.YEAR);
 		fromDate.setOnClickListener(this);
 
-		db = openOrCreateDatabase("ERAPP", MODE_PRIVATE, null);
-		db.execSQL("CREATE TABLE IF NOT EXISTS Expense(email VARCHAR, cost VARCHAR, date VARCHAR, name VARCHAR, "
-				+ "category VARCHAR, type VARCHAR, image VARCHAR");
+		db = openOrCreateDatabase("ERAPP.db", MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS Expense(email VARCHAR, cost VARCHAR, date VARCHAR, name VARCHAR,category VARCHAR, type VARCHAR, image VARCHAR)");
 	}
 
 	@Override

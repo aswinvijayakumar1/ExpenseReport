@@ -1,20 +1,12 @@
 package com.example.expensereport;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.os.Build;
 
 public class RegisterActivity extends ActionBarActivity {
 
@@ -39,6 +31,7 @@ public class RegisterActivity extends ActionBarActivity {
 		type = (EditText) findViewById (R.id.type);
 		code = (EditText) findViewById (R.id.companyCode);
 		db.execSQL("INSERT INTO Member VALUES('"+email.getText()+"','"+password.getText()+"','"+name.getText()+"','"+type.getText()+"','"+code.getText()+"');");
+
 		
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);

@@ -1,23 +1,19 @@
 package com.example.expensereport;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
-import android.os.Build;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -29,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        db=openOrCreateDatabase("ERAPP.db",MODE_PRIVATE, null);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -40,21 +37,27 @@ public class MainActivity extends ActionBarActivity {
 	{
 		email = (EditText) findViewById (R.id.email);
 		password = (EditText) findViewById (R.id.password);
-		Cursor c = db.rawQuery("SELECT 1 AS Output FROM ERAPP WHERE EXISTS (SELECT * FROM ERAPP WHERE email = '"+email.getText()+"' AND password = '"+password.getText()+"')", null);
-		c.moveToFirst();
-		int output = c.getInt(c.getColumnIndex("Output"));
-		Log.println(1, "Output Value: ", ""+output);
-		
-		if(output == 1)
-		{
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
-		}
-		else
-		{
-			email.setText("");
-			password.setText("");
-		}
+		try {
+
+
+            Cursor c = db.rawQuery("SELECT 1 AS Output FROM Member WHERE EXISTS (SELECT * FROM Member WHERE email = '"+email.getText()+"' AND password = '"+password.getText()+"')", null);
+            c.moveToFirst();
+            int output = c.getInt(c.getColumnIndex("Output"));
+            Log.println(1, "Output Value: ", "" + output);
+            c.close();
+
+            if (output == 1) {
+                Intent intent = new Intent(this, ReportActivity.class);
+                startActivity(intent);
+            } else {
+                email.setText("");
+                password.setText("");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 	
 	public void register(View view) 
